@@ -2,7 +2,7 @@ import { DefinitionResponseDTO, FormIdDTO, FormDTO, IdDTO, FormUpdateDTO, EntryR
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { MsFormService } from './ms-form.service';
 
-@Controller('form')
+@Controller('forms')
 export class MsFormController {
 
     constructor(private readonly service: MsFormService) { }
@@ -43,22 +43,24 @@ export class MsFormController {
     }
 
     @Get(":formId/record/:recordId")
-    async fetchARecordById(payload: RecordIdDTO): Promise<EntryResponseDTO> {
-        return await this.service.abc(payload);
+    async fetchARecordById(@Param("formId") formId: number, @Param("recordId") recordId: number): Promise<EntryResponseDTO> {
+        return await this.service.fetchARecordById({ formId, recordId });
     }
 
     @Post(":formId/record")
-    async createRecord(payload: RecordDTO): Promise<IdDTO> {
-        return await this.service.abc(payload);
+    async createRecord(@Param("formId") formId: number, @Body() payload: RecordDTO): Promise<IdDTO> {
+        payload.formId = formId;
+        return await this.service.createRecord(payload);
     }
 
     @Patch(":formId/record/:recordId")
-    async updateRecord(payload: RecordUpdateDTO): Promise<IdDTO> {
-        return await this.service.abc(payload);
+    async updateRecord(@Param("formId") formId: number, @Body() payload: RecordUpdateDTO): Promise<IdDTO> {
+        payload.formId = formId;
+        return await this.service.updateRecord(payload);
     }
 
     @Delete(":formId/record/:recordId")
-    async deleteRecord(payload: RecordIdDTO): Promise<IdDTO> {
-        return await this.service.abc(payload);
+    async deleteRecord(@Param("formId") formId: number, @Param("recordId") recordId: number): Promise<IdDTO> {
+        return await this.service.deleteRecord({ formId, recordId });
     }
 }
