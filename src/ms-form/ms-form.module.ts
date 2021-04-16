@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
-import { ConfigService } from 'src/config/config.service';
+import { ConfigService } from './../config/config.service';
 import { MsFormController } from './ms-form.controller';
 import { MsFormService } from './ms-form.service';
 
@@ -8,6 +8,7 @@ import { MsFormService } from './ms-form.service';
   controllers: [MsFormController],
   providers: [
     MsFormService,
+    ConfigService,
     {
       provide: "timeout",
       useFactory: (configService: ConfigService) => {
@@ -18,7 +19,7 @@ import { MsFormService } from './ms-form.service';
   ],
   imports: [
     ClientsModule.register([
-      { name: 'RVN_MS_FORM_CLIENT', transport: Transport.TCP }
+      { name: 'RVN_MS_FORM_CLIENT', transport: Transport.TCP, options: {port: 3002} }
     ])
   ]
 })
