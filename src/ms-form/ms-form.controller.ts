@@ -51,13 +51,16 @@ export class MsFormController {
     }
 
     @Post(":formId/record")
-    async createRecord(@Param("formId", ParseIntPipe) formId: number, @Body() payload: RecordDTO): Promise<IdDTO> {
+    async createRecord(@Param("formId", ParseIntPipe) formId: number, @Body() payload: RecordDTO, @Req() request: Request): Promise<IdDTO> {
+        payload.request = request;
         payload.formId = formId;
         return await this.service.createRecord(payload);
     }
 
     @Patch(":formId/record/:recordId")
-    async updateRecord(@Param("formId", ParseIntPipe) formId: number, @Body() payload: RecordUpdateDTO): Promise<IdDTO> {
+    async updateRecord(@Param("formId", ParseIntPipe) formId: number, @Param("recordId", ParseIntPipe) recordId: number, @Body() payload: RecordUpdateDTO, @Req() request: Request): Promise<IdDTO> {
+        payload.id = recordId;
+        payload.request = request;
         payload.formId = formId;
         return await this.service.updateRecord(payload);
     }
