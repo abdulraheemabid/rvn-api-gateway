@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MsFormModule } from './ms-form/ms-form.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [MsFormModule],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule { }
