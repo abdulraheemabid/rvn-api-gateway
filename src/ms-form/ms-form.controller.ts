@@ -1,5 +1,5 @@
 import { DefinitionResponseDTO, FormIdDTO, FormDTO, IdDTO, FormUpdateDTO, EntryResponseDTO, RecordIdDTO, RecordDTO, RecordUpdateDTO } from '@abdulraheemabid/rvn-nest-shared';
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Req } from '@nestjs/common';
 import { MsFormService } from './ms-form.service';
 import { Request } from 'express';
 
@@ -66,7 +66,7 @@ export class MsFormController {
     }
 
     @Delete(":formId/record/:recordId")
-    async deleteRecord(@Param("formId", ParseIntPipe) formId: number, @Param("recordId", ParseIntPipe) recordId: number): Promise<IdDTO> {
-        return await this.service.deleteRecord({ formId, recordId });
+    async deleteRecord(@Param("formId", ParseIntPipe) formId: number, @Param("recordId", ParseIntPipe) recordId: number, @Query("newParentIdForChildren", ParseIntPipe) newParentIdForChildren: number): Promise<IdDTO> {
+        return await this.service.deleteRecord({ formId, recordId, newParentIdForChildren });
     }
 }
