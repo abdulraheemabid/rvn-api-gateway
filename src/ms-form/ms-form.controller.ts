@@ -1,4 +1,4 @@
-import { DefinitionResponseDTO, FormIdDTO, FormDTO, IdDTO, FormUpdateDTO, EntryResponseDTO, RecordDTO, RecordUpdateDTO } from '@abdulraheemabid/rvn-nest-shared';
+import { DefinitionResponseDTO, FormIdDTO, FormDTO, IdDTO, FormUpdateDTO, EntryResponseDTO, RecordDTO, RecordUpdateDTO, FormRelationDTO } from '@abdulraheemabid/rvn-nest-shared';
 import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Req } from '@nestjs/common';
 import { MsFormService } from './ms-form.service';
 import { Request } from 'express';
@@ -24,6 +24,11 @@ export class MsFormController {
     @Get(":id/direct-children")
     async fetchFormDirectChildren(@Param("id", ParseIntPipe) id: number): Promise<number[]> {
         return await this.service.fetchFormDirectChildren({ formId: id });
+    }
+
+    @Get("trees/all")
+    async fetchAllFormTrees(): Promise<FormRelationDTO> {
+        return await this.service.fetchAllFormTrees();
     }
 
     @Post()
