@@ -1,7 +1,8 @@
-import { DefinitionResponseDTO, FormIdDTO, FormDTO, IdDTO, FormUpdateDTO, EntryResponseDTO, RecordIdDTO, RecordDTO, RecordUpdateDTO } from '@abdulraheemabid/rvn-nest-shared';
+import { DefinitionResponseDTO, FormIdDTO, FormDTO, IdDTO, FormUpdateDTO, EntryResponseDTO, RecordDTO, RecordUpdateDTO } from '@abdulraheemabid/rvn-nest-shared';
 import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, Req } from '@nestjs/common';
 import { MsFormService } from './ms-form.service';
 import { Request } from 'express';
+import { ApiQuery } from '@nestjs/swagger';
 
 @Controller('forms')
 export class MsFormController {
@@ -41,8 +42,11 @@ export class MsFormController {
 
     //Records
     @Get(":formId/record")
-    async fetchAllRecords(@Param("formId", ParseIntPipe) formId: number): Promise<EntryResponseDTO[]> {
-        return await this.service.fetchAllRecords({ formId });
+    async fetchAllRecords(
+        @Param("formId", ParseIntPipe) formId: number,
+        @Query("parentId", new DefaultValuePipe(-1), ParseIntPipe) parentId?: number): Promise<EntryResponseDTO[]> {
+        if (parentId === -1) parentId = null;
+        return await this.service.fetchAllRecords({ formId, parentRecordId: parentId });
     }
 
     @Get(":formId/record/:recordId")
@@ -66,7 +70,10 @@ export class MsFormController {
     }
 
     @Delete(":formId/record/:recordId")
-    async deleteRecord(@Param("formId", ParseIntPipe) formId: number, @Param("recordId", ParseIntPipe) recordId: number, @Query("newParentIdForChildren", new DefaultValuePipe(-1), ParseIntPipe) newParentIdForChildren?: number): Promise<IdDTO> {
-        return await this.service.deleteRecord({ formId, recordId, newParentIdForChildren });
+    async deleteRecord(
+        @Param("formId", ParseIntPipe) formId: number,
+        @Param("recordId", ParseIntPipe) recordId: number,
+        @Query("parentId", new DefaultValuePipe(-1), ParseIntPipe) parentId?: number): Promise<IdDTO> {
+        return await this.service.deleteRecord({ formId, recordId, newParentIdForChildren: parentId });
     }
 }
