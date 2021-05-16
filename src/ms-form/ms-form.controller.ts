@@ -27,7 +27,7 @@ export class MsFormController {
     }
 
     @Get("trees/all")
-    async fetchAllFormTrees(): Promise<FormRelationDTO> {
+    async fetchAllFormTrees(): Promise<FormRelationDTO[]> {
         return await this.service.fetchAllFormTrees();
     }
 
