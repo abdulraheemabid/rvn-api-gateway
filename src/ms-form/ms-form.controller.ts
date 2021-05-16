@@ -21,6 +21,11 @@ export class MsFormController {
         return await this.service.fetchFormById({ formId: id });
     }
 
+    @Get(":id/direct-children")
+    async fetchFormDirectChildren(@Param("id", ParseIntPipe) id: number): Promise<number[]> {
+        return await this.service.fetchFormDirectChildren({ formId: id });
+    }
+
     @Post()
     async createForm(@Body() payload: FormDTO, @Req() request: Request): Promise<IdDTO> {
         payload.request = request;
