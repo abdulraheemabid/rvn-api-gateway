@@ -9,7 +9,7 @@ API Gateway is the single entry point of the Raven's backend framework. It expos
 
 ### Setup
 1. Run `npm install`
-2. Make sure `rvn-ms-forms` is up and running, and configure its port in ms-form.module.ts.
+2. Make sure `rvn-ms-forms` is up and running, and configure its port in ms-form.module.ts. *NOTE: This will not be needeed in future when service discovery is in place*.
 3. Run `npm run start`
 
 ### Misc.
