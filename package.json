@@ -1,6 +1,6 @@
 {
     "name": "rvn-api-gateway",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "",
     "author": "",
     "private": true,
@@ -21,7 +21,7 @@
         "test:e2e": "jest --config ./test/jest-e2e.json"
     },
     "dependencies": {
-        "@abdulraheemabid/rvn-nest-shared": "^0.1.14",
+        "@abdulraheemabid/rvn-nest-shared": "^0.2.0",
         "@nestjs/common": "^7.6.13",
         "@nestjs/core": "^7.6.13",
         "@nestjs/microservices": "^7.6.15",
