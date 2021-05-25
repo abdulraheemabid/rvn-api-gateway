@@ -1,3 +1,22 @@
+## Raven API Gateway
+API Gateway is the single entry point of the Raven's backend framework. It exposes REST APIs which can be consumed by clients.
+
+### Responsibilities
+1. Expose REST endpoints.
+2. Extract inputs from REST and forward to relavant microservice.
+3. Handle response wrapping for all microservice's responses.
+4. Single point for auth. All authentication/authorization will be done at this entry point so that each microservice dont have to handle auth with each call.
+
+### Setup
+1. Run `npm install`
+2. Make sure `rvn-ms-forms` is up and running, and configure its port in ms-form.module.ts.
+3. Run `npm run start`
+
+### Misc.
+* After `npm run start`, open http://localhost:3000/api/#/ for swagger documentation
+* See `package.json`'s script section for different options to run / test / build the app.
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
